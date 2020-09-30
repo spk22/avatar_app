@@ -1,3 +1,4 @@
+import 'package:avatar_back4app/app/auth_widget.dart';
 import 'package:avatar_back4app/app/routing_constants.dart';
 import 'package:avatar_back4app/common_widgets/avatar.dart';
 import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
@@ -54,7 +55,11 @@ class HomePage extends StatelessWidget {
     try {
       final auth = Provider.of<ParseAuthService>(context, listen: false);
       await auth.signOut();
-      Navigator.of(context).pushReplacementNamed(RoutingConstants.signinPage);
+      // Navigator.of(context).pushReplacementNamed(RoutingConstants.signinPage);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AuthWidget()),
+      );
     } catch (e) {
       print(e);
     }

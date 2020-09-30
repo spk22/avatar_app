@@ -27,7 +27,16 @@ class _AuthWidgetState extends State<AuthWidget> {
       // initialData: InitialData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         print('user: ${snapshot.data}');
-        return (snapshot.data != null) ? HomePage() : SigninPage();
+        // return (snapshot.data != null) ? HomePage() : SigninPage();
+        final user = snapshot.data;
+        if (user != null) {
+          return Provider<User>.value(
+            value: user,
+            child: HomePage(),
+          );
+        } else {
+          return SigninPage();
+        }
       },
     );
   }

@@ -1,3 +1,4 @@
+import 'package:avatar_back4app/app/auth_widget.dart';
 import 'package:avatar_back4app/app/routing_constants.dart';
 import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,11 @@ class _SigninPageState extends State<SigninPage> {
       if (user != null) {
         print('Object Id: ' + user.uid);
         // Navigator.of(context).pushReplacementNamed(RoutingConstants.homePage);
-        Navigator.pushNamed(context, RoutingConstants.homePage);
+        // Navigator.pushNamed(context, RoutingConstants.homePage);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AuthWidget()),
+        );
       }
     } catch (e) {
       print(e);
