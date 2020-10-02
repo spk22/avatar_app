@@ -1,5 +1,4 @@
 import 'package:avatar_back4app/app/auth_widget.dart';
-import 'package:avatar_back4app/app/routing_constants.dart';
 import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

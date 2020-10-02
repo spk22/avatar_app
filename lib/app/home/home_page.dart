@@ -1,5 +1,4 @@
 import 'package:avatar_back4app/app/auth_widget.dart';
-import 'package:avatar_back4app/app/routing_constants.dart';
 import 'package:avatar_back4app/common_widgets/avatar.dart';
 import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +65,6 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildUserInfo(BuildContext context) {
-    //TODO: Download and show avatar from backend
     return Avatar(
       photoUrl: null,
       radius: 50.0,
@@ -82,6 +80,22 @@ class HomePage extends StatelessWidget {
       // 2. Upload to storage
       // 3. Save url to backend
       // 4. (optional) delete local file as no longer needed
+      // final picker = Provider.of<ImagePickerService>(context, listen: false);
+      // // bool isNotNull = (picker != null);
+      // // print('picker: ' + isNotNull.toString());
+      // final user = Provider.of<User>(context, listen: false);
+      // final auth = Provider.of<ParseAuthService>(context, listen: false);
+      // final response = await ParseUser.forQuery().getObject(user.uid);
+      // ParseUser parseUser;
+      // if (response.success) {
+      //   parseUser = response.results.first;
+      //   print('objectId of parseUser: ${parseUser.objectId}');
+      // }
+      // final selectedImage = await picker.pickImage(source: ImageSource.gallery);
+      // ParseFileBase parseFile = ParseFile(File(selectedImage.path));
+      // ParseUser parseUser = auth.getParseUser(user);
+      // parseUser.set("image", parseFile);
+      // await parseUser.save();
     } catch (e) {
       print(e);
     }

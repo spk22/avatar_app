@@ -15,7 +15,7 @@ class ParseAuthService {
       AppKeys.APP_ID,
       AppKeys.APP_SERVER_URL,
       clientKey: AppKeys.APP_CLIENT_KEY,
-      autoSendSessionId: true,
+      autoSendSessionId: false,
       debug: true,
       coreStore: await CoreStoreSharedPrefsImp.getInstance(),
     );
