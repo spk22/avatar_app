@@ -15,12 +15,19 @@ class ParseAuthService {
       AppKeys.APP_ID,
       AppKeys.APP_SERVER_URL,
       clientKey: AppKeys.APP_CLIENT_KEY,
+      masterKey: AppKeys.APP_MASTER_KEY,
       autoSendSessionId: false,
       debug: true,
       coreStore: await CoreStoreSharedPrefsImp.getInstance(),
     );
     final ParseResponse parseResponse = await Parse().healthCheck();
     return parseResponse.success;
+  }
+
+  Future<ParseUser> getParseUser(User user) async {
+    final response = await ParseUser.forQuery().getObject(user.uid);
+    ParseUser parseUser = (response.success) ? response.results.first : null;
+    return parseUser;
   }
 
   User _userFromParse(ParseUser user) {
@@ -45,19 +52,16 @@ class ParseAuthService {
       return null;
   }
 
-  Stream<ParseUser> _onAuthStateChanged() async* {
-    while (true) {
-      ParseUser currentUser = await ParseUser.currentUser();
-      yield currentUser;
-    }
+  Future<bool> signOut(User user) async {
+    ParseUser parseUser = await getParseUser(user);
+    ParseResponse response = await parseUser.logout();
+    return response.success;
   }
 
-  Stream<User> get onAuthStateChanged {
-    return _onAuthStateChanged().map((parseUser) => _userFromParse(parseUser));
-  }
-
-  Future<void> signOut() async {
-    ParseUser currentUser = await ParseUser.currentUser();
-    currentUser.logout();
+  Future<bool> hasImage(User user) async {
+    ParseUser parseUser = await getParseUser(user);
+    var result = parseUser.get<ParseFileBase>("image");
+    print('result: ' + (result != null).toString());
+    return (result != null);
   }
 }

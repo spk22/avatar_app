@@ -1,20 +1,26 @@
+import 'package:avatar_back4app/services/parse/image_picker_service.dart';
+import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:provider/provider.dart';
 
 class Avatar extends StatelessWidget {
-  final String photoUrl;
+  final bool hasImage;
+  final User user;
   final double radius;
   final Color borderColor;
   final double borderWidth;
   final VoidCallback onPressed;
 
-  const Avatar(
-      {Key key,
-      @required this.photoUrl,
-      @required this.radius,
-      this.borderColor,
-      this.borderWidth,
-      this.onPressed})
-      : super(key: key);
+  const Avatar({
+    Key key,
+    @required this.user,
+    @required this.radius,
+    this.borderColor,
+    this.borderWidth,
+    this.onPressed,
+    this.hasImage,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +28,7 @@ class Avatar extends StatelessWidget {
       decoration: _borderDecoration(),
       child: InkWell(
         onTap: onPressed,
-        child: CircleAvatar(
-          radius: radius,
-          backgroundColor: Colors.black12,
-          backgroundImage: photoUrl != null ? NetworkImage(photoUrl) : null,
-          child: photoUrl == null ? Icon(Icons.camera_alt, size: radius) : null,
-        ),
+        child: buildImage(context, user, radius, hasImage),
       ),
     );
   }
@@ -43,5 +44,38 @@ class Avatar extends StatelessWidget {
       );
     }
     return null;
+  }
+
+  Widget buildImage(
+      BuildContext context, User user, double radius, bool hasImage) {
+    final picker = Provider.of<ImagePickerService>(context, listen: false);
+    if (hasImage) {
+      return FutureBuilder<ParseFileBase>(
+        future: picker.getParseImage(context, user),
+        // initialData: InitialData,
+        builder: (BuildContext context, AsyncSnapshot<ParseFileBase> snapshot) {
+          if (snapshot.hasData) {
+            // return Image.file((snapshot.data as ParseFile).file);
+            return CircleAvatar(
+              radius: radius,
+              backgroundColor: Colors.black12,
+              backgroundImage: (hasImage)
+                  ? FileImage((snapshot.data as ParseFile).file)
+                  : null,
+              child: (!hasImage) ? Icon(Icons.camera_alt, size: radius) : null,
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    } else {
+      return CircleAvatar(
+        radius: radius,
+        backgroundColor: Colors.black12,
+        backgroundImage: null,
+        child: Icon(Icons.camera_alt, size: radius),
+      );
+    }
   }
 }

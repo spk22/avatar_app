@@ -79,7 +79,6 @@ class _SigninPageState extends State<SigninPage> {
   }
 
   Future<void> _signIn(BuildContext context) async {
-    //TODO: Implement
     try {
       final auth = Provider.of<ParseAuthService>(context, listen: false);
       User user = await auth.signIn(_email, _password);

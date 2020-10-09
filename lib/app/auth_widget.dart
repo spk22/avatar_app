@@ -4,20 +4,8 @@ import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AuthWidget extends StatefulWidget {
+class AuthWidget extends StatelessWidget {
   const AuthWidget({Key key}) : super(key: key);
-
-  @override
-  _AuthWidgetState createState() => _AuthWidgetState();
-}
-
-class _AuthWidgetState extends State<AuthWidget> {
-  @override
-  void initState() {
-    final result = ParseAuthService.intiData();
-    result.then((bool success) => print(success));
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
