@@ -1,12 +1,9 @@
 import 'package:avatar_back4app/app/auth_widget.dart';
+import 'package:avatar_back4app/app/auth_widget_builder.dart';
 import 'package:avatar_back4app/services/parse/image_picker_service.dart';
 import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'app/home/home_page.dart';
-import 'app/routing_constants.dart';
-import 'app/signin/signin_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,11 +29,11 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.indigo,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: AuthWidget(),
-        routes: {
-          RoutingConstants.homePage: (context) => HomePage(),
-          RoutingConstants.signinPage: (context) => SigninPage(),
-        },
+        home: AuthWidgetBuilder(
+          builder: (context, userSnapshot) {
+            return AuthWidget(userSnapshot: userSnapshot);
+          },
+        ),
       ),
     );
   }

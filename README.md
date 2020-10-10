@@ -4,7 +4,17 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project requires app_keys.dart file in lib/services/parse directory. 
+
+<pre><code> class AppKeys { 
+  static const String APP_ID = '';
+  static const String APP_SERVER_URL = 'https://parseapi.back4app.com/';
+  static const String APP_CLIENT_KEY =
+      '';
+  static const String APP_MASTER_KEY =
+      '';
+}
+  </code></pre>
 
 A few resources to get you started if this is your first Flutter project:
 

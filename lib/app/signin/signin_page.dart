@@ -1,4 +1,5 @@
 import 'package:avatar_back4app/app/auth_widget.dart';
+import 'package:avatar_back4app/app/auth_widget_builder.dart';
 import 'package:avatar_back4app/services/parse/parse_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +89,13 @@ class _SigninPageState extends State<SigninPage> {
         // Navigator.pushNamed(context, RoutingConstants.homePage);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AuthWidget()),
+          MaterialPageRoute(
+            builder: (context) => AuthWidgetBuilder(
+              builder: (context, userSnapshot) {
+                return AuthWidget(userSnapshot: userSnapshot);
+              },
+            ),
+          ),
         );
       }
     } catch (e) {
