@@ -17,7 +17,7 @@ class ParseAuthService {
       clientKey: AppKeys.APP_CLIENT_KEY,
       masterKey: AppKeys.APP_MASTER_KEY,
       autoSendSessionId: false,
-      debug: true,
+      debug: false,
       coreStore: await CoreStoreSharedPrefsImp.getInstance(),
     );
     final ParseResponse parseResponse = await Parse().healthCheck();
@@ -61,7 +61,7 @@ class ParseAuthService {
   Future<bool> hasImage(User user) async {
     ParseUser parseUser = await getParseUser(user);
     var result = parseUser.get<ParseFileBase>("image");
-    print('result: ' + (result != null).toString());
+    print('hasImage: ' + (result != null).toString());
     return (result != null);
   }
 }

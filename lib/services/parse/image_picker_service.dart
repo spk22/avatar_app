@@ -15,12 +15,16 @@ class ImagePickerService {
 
   Future<bool> uploadParseImage(BuildContext context, User user) async {
     final selectedImage = await _pickImage(source: ImageSource.gallery);
-    ParseFileBase parseFile = ParseFile(File(selectedImage.path));
-    final auth = Provider.of<ParseAuthService>(context, listen: false);
-    ParseUser parseUser = await auth.getParseUser(user);
-    parseUser.set("image", parseFile);
-    final response = await parseUser.save();
-    return response.success;
+    if (selectedImage != null) {
+      ParseFileBase parseFile = ParseFile(File(selectedImage.path));
+      final auth = Provider.of<ParseAuthService>(context, listen: false);
+      ParseUser parseUser = await auth.getParseUser(user);
+      parseUser.set("image", parseFile);
+      final response = await parseUser.save();
+      return response.success;
+    } else {
+      return false;
+    }
   }
 
   Future<ParseFileBase> getParseImage(BuildContext context, User user) async {

@@ -9,12 +9,13 @@ class AuthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('AuthWidget build');
     final auth = Provider.of<ParseAuthService>(context, listen: false);
     return FutureBuilder<User>(
       future: auth.currentUser(),
       // initialData: InitialData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        print('user: ${snapshot.data}');
+        print('FutureBuilder: ${snapshot.connectionState}');
         // return (snapshot.data != null) ? HomePage() : SigninPage();
         final user = snapshot.data;
         if (user != null) {

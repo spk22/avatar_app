@@ -45,7 +45,8 @@ class HomePage extends StatelessWidget {
 
   Future<void> _onAbout(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(
-      builder: (_) => AboutPage(),
+      builder: (_) =>
+          AboutPage(user: Provider.of<User>(context, listen: false)),
       fullscreenDialog: true,
     ));
   }
